@@ -10,5 +10,6 @@
 
   
 bin_PROGRAMS = auto_step
+EXTRA_PROGRAMS = auto_step
+auto_step_LDADD = -lpulse-simple
 auto_step_SOURCES = auto_step.cc
-

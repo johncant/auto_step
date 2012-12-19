@@ -7,7 +7,8 @@ Please send auto_step bug reports to a.johncant@gmail.com.
 
 Version 0.1
 
-* List your features here
+Installed GNU autotools
+Output 2 seconds of middle A @440Hz through pulseaudio
 
 -------------------------------------------------------
 Copying information:
