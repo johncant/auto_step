@@ -19,7 +19,7 @@ namespace AutoStep {
         double output(double time);
       };
 
-      SquareWave::Note output(double freq);
+      boost::intrusive_ptr<SquareWave::Note> output(double freq);
     };
   }
 }

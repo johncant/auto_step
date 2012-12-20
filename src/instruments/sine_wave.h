@@ -11,15 +11,15 @@ namespace AutoStep {
       public:
       class Note : public AutoStep::Note {
         friend class SineWave;
-        private:
         Note(double _freq);
+        private:
         double freq;
 
         public:
         double output(double time);
       };
 
-      SineWave::Note output(double freq);
+      boost::intrusive_ptr<SineWave::Note> output(double freq);
     };
   }
 }

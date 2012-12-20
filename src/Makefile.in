@@ -74,8 +74,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_auto_step_OBJECTS = auto_step.$(OBJEXT) haar.$(OBJEXT) \
-	config.$(OBJEXT) bar_simple_line.$(OBJEXT) sine_wave.$(OBJEXT) \
-	square_wave.$(OBJEXT)
+	config.$(OBJEXT) bar_simple_line.$(OBJEXT) note.$(OBJEXT) \
+	sine_wave.$(OBJEXT) square_wave.$(OBJEXT)
 auto_step_OBJECTS = $(am_auto_step_OBJECTS)
 auto_step_DEPENDENCIES =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -182,7 +182,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 auto_step_LDADD = -lpulse-simple
-auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc instruments/sine_wave.cc instruments/square_wave.cc
+auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc note.cc instruments/sine_wave.cc instruments/square_wave.cc
 all: all-am
 
 .SUFFIXES:
@@ -271,6 +271,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bar_simple_line.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/haar.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/note.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sine_wave.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/square_wave.Po@am__quote@
 

@@ -2,11 +2,12 @@
 #define __INSTRUMENT_H__
 
 #include "note.h"
+#include <boost/smart_ptr/intrusive_ptr.hpp>
 
 // An instrument is an object which produces notes for a given frequency.
 namespace AutoStep {
   class Instrument {
-    Note output(double freq);
+    boost::intrusive_ptr<Note> output(double freq);
   };
 }
 

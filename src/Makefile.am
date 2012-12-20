@@ -12,4 +12,4 @@
 bin_PROGRAMS = auto_step
 EXTRA_PROGRAMS = auto_step
 auto_step_LDADD = -lpulse-simple
-auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc instruments/sine_wave.cc instruments/square_wave.cc
+auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc note.cc instruments/sine_wave.cc instruments/square_wave.cc

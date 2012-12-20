@@ -97,7 +97,7 @@ int main(void) {
 //  AutoStep::Instruments::SineWave::Note note0 = instrument0.output(base_freq);
 
   AutoStep::Instruments::SquareWave instrument1;
-  AutoStep::Instruments::SquareWave::Note note1 = instrument1.output(base_freq);
+  boost::intrusive_ptr<AutoStep::Note> note1 = instrument1.output(base_freq);
 
 
   for (int i=0; i<samples_count; i++) {
@@ -109,7 +109,7 @@ int main(void) {
 //    double freq = base_freq*pow(2, note/12);
     //cout << note;
     //cout << freq;
-    data[i] = (int16_t) double(wave_max)*amplitude*(note1.output(time)); //*sin(2*pi*modulation_freq*time);
+    data[i] = (int16_t) double(wave_max)*amplitude*(note1->output(time)); //*sin(2*pi*modulation_freq*time);
     //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*note0.output(time)+0.5*note1.output(time)); //*sin(2*pi*modulation_freq*time);
 
   }
