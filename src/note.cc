@@ -2,7 +2,7 @@
 # include <config.h>
 #endif
 
-
+#include <iostream>
 #include "note.h"
 
 AutoStep::Note::Note() {
@@ -16,6 +16,9 @@ void intrusive_ptr_add_ref(AutoStep::Note *ptr) {
 
 void intrusive_ptr_release(AutoStep::Note *ptr) {
   ptr->ref_count--;
-  if (ptr->ref_count == 0) delete ptr;
+  if (ptr->ref_count == 0) {
+    std::cout << "DELETING" << std::endl;
+    delete ptr;
+  }
 }
 

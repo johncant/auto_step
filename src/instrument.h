@@ -7,7 +7,7 @@
 // An instrument is an object which produces notes for a given frequency.
 namespace AutoStep {
   class Instrument {
-    boost::intrusive_ptr<Note> output(double freq);
+    boost::intrusive_ptr<Note> output();
   };
 }
 

@@ -75,7 +75,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_auto_step_OBJECTS = auto_step.$(OBJEXT) haar.$(OBJEXT) \
 	config.$(OBJEXT) bar_simple_line.$(OBJEXT) note.$(OBJEXT) \
-	sine_wave.$(OBJEXT) square_wave.$(OBJEXT)
+	sine_wave.$(OBJEXT) square_wave.$(OBJEXT) sawtooth.$(OBJEXT) \
+	filter.$(OBJEXT) band_pass_butterworth.$(OBJEXT)
 auto_step_OBJECTS = $(am_auto_step_OBJECTS)
 auto_step_DEPENDENCIES =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -182,7 +183,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 auto_step_LDADD = -lpulse-simple
-auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc note.cc instruments/sine_wave.cc instruments/square_wave.cc
+auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc note.cc instruments/sine_wave.cc instruments/square_wave.cc instruments/sawtooth.cc instruments/filter.cc instruments/filters/band_pass_butterworth.cc
 all: all-am
 
 .SUFFIXES:
@@ -268,10 +269,13 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/auto_step.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/band_pass_butterworth.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bar_simple_line.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/filter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/haar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/note.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sawtooth.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sine_wave.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/square_wave.Po@am__quote@
 
@@ -316,6 +320,48 @@ square_wave.obj: instruments/square_wave.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/square_wave.cc' object='square_wave.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o square_wave.obj `if test -f 'instruments/square_wave.cc'; then $(CYGPATH_W) 'instruments/square_wave.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/square_wave.cc'; fi`
+
+sawtooth.o: instruments/sawtooth.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sawtooth.o -MD -MP -MF $(DEPDIR)/sawtooth.Tpo -c -o sawtooth.o `test -f 'instruments/sawtooth.cc' || echo '$(srcdir)/'`instruments/sawtooth.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/sawtooth.Tpo $(DEPDIR)/sawtooth.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/sawtooth.cc' object='sawtooth.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sawtooth.o `test -f 'instruments/sawtooth.cc' || echo '$(srcdir)/'`instruments/sawtooth.cc
+
+sawtooth.obj: instruments/sawtooth.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sawtooth.obj -MD -MP -MF $(DEPDIR)/sawtooth.Tpo -c -o sawtooth.obj `if test -f 'instruments/sawtooth.cc'; then $(CYGPATH_W) 'instruments/sawtooth.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/sawtooth.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/sawtooth.Tpo $(DEPDIR)/sawtooth.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/sawtooth.cc' object='sawtooth.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sawtooth.obj `if test -f 'instruments/sawtooth.cc'; then $(CYGPATH_W) 'instruments/sawtooth.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/sawtooth.cc'; fi`
+
+filter.o: instruments/filter.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT filter.o -MD -MP -MF $(DEPDIR)/filter.Tpo -c -o filter.o `test -f 'instruments/filter.cc' || echo '$(srcdir)/'`instruments/filter.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/filter.Tpo $(DEPDIR)/filter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filter.cc' object='filter.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o filter.o `test -f 'instruments/filter.cc' || echo '$(srcdir)/'`instruments/filter.cc
+
+filter.obj: instruments/filter.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT filter.obj -MD -MP -MF $(DEPDIR)/filter.Tpo -c -o filter.obj `if test -f 'instruments/filter.cc'; then $(CYGPATH_W) 'instruments/filter.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filter.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/filter.Tpo $(DEPDIR)/filter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filter.cc' object='filter.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o filter.obj `if test -f 'instruments/filter.cc'; then $(CYGPATH_W) 'instruments/filter.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filter.cc'; fi`
+
+band_pass_butterworth.o: instruments/filters/band_pass_butterworth.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT band_pass_butterworth.o -MD -MP -MF $(DEPDIR)/band_pass_butterworth.Tpo -c -o band_pass_butterworth.o `test -f 'instruments/filters/band_pass_butterworth.cc' || echo '$(srcdir)/'`instruments/filters/band_pass_butterworth.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/band_pass_butterworth.Tpo $(DEPDIR)/band_pass_butterworth.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filters/band_pass_butterworth.cc' object='band_pass_butterworth.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o band_pass_butterworth.o `test -f 'instruments/filters/band_pass_butterworth.cc' || echo '$(srcdir)/'`instruments/filters/band_pass_butterworth.cc
+
+band_pass_butterworth.obj: instruments/filters/band_pass_butterworth.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT band_pass_butterworth.obj -MD -MP -MF $(DEPDIR)/band_pass_butterworth.Tpo -c -o band_pass_butterworth.obj `if test -f 'instruments/filters/band_pass_butterworth.cc'; then $(CYGPATH_W) 'instruments/filters/band_pass_butterworth.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filters/band_pass_butterworth.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/band_pass_butterworth.Tpo $(DEPDIR)/band_pass_butterworth.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filters/band_pass_butterworth.cc' object='band_pass_butterworth.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o band_pass_butterworth.obj `if test -f 'instruments/filters/band_pass_butterworth.cc'; then $(CYGPATH_W) 'instruments/filters/band_pass_butterworth.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filters/band_pass_butterworth.cc'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

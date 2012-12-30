@@ -30,6 +30,7 @@
 // Instruments
 #include "instruments/square_wave.h"
 #include "instruments/sine_wave.h"
+#include "instruments/filters/band_pass_butterworth.h"
 
 using namespace std;
 using namespace TNT;
@@ -67,6 +68,7 @@ int main(void) {
                    );
 
 
+
   if (error) fail_with_pa_error(error);
 
   pa_usec_t lat = pa_simple_get_latency(s, &error);
@@ -82,34 +84,72 @@ int main(void) {
   AutoStep::BarSimpleLine bar;
   double beat_freq = 0.25; // 60bpm
 
-  double signal_length = 25; // seconds
-  int samples_count = int(signal_length)*int(ss.rate);
+  double signal_length = 5; // seconds
+  int samples_count = (int) double(signal_length)*int(ss.rate);
   int16_t data[samples_count];
 
   const double pi = 3.14159265898;
   double base_freq = 55; // Hz
-  double amplitude = 1; // 0-1
+  double amplitude = 0.2; // 0-1
   double time = 0; // Seconds
 
-  double modulation_freq = 11; // Hz
+  double modulation_freq = 22.5; // Hz
+  double womp_freq = 1;
 
-//  AutoStep::Instruments::SineWave instrument0;
-//  AutoStep::Instruments::SineWave::Note note0 = instrument0.output(base_freq);
+  AutoStep::Instruments::SineWave instrument0;
+  boost::intrusive_ptr<AutoStep::Note> womp0 = instrument0.output(modulation_freq);
+  boost::intrusive_ptr<AutoStep::Note> womp1 = instrument0.output(womp_freq);
 
-  AutoStep::Instruments::SquareWave instrument1;
-  boost::intrusive_ptr<AutoStep::Note> note1 = instrument1.output(base_freq);
+  AutoStep::Instruments::SineWave sine_wave_generator;
+  boost::intrusive_ptr<AutoStep::Note> sine_wave_note = sine_wave_generator.output(base_freq);
 
+  AutoStep::Instruments::SquareWave sawtooth_generator;
+  boost::intrusive_ptr<AutoStep::Note> sawtooth_note = sawtooth_generator.output(base_freq);
+
+  AutoStep::Instruments::SquareWave sq_wave_generator;
+  boost::intrusive_ptr<AutoStep::Note> sq_wave_note = sq_wave_generator.output(base_freq);
+
+  AutoStep::Instruments::BandPassButterworthFilter dubstep_sound;
+  boost::intrusive_ptr<AutoStep::Note> dubstep_note = dubstep_sound.output(sq_wave_note, base_freq, 1e0*base_freq, 2, 1/double(ss.rate));
 
   for (int i=0; i<samples_count; i++) {
 
-    
     time = double(i)/double(ss.rate);
 
 //    double note = bar.evaluate_at(fmod(time*beat_freq, 1));
 //    double freq = base_freq*pow(2, note/12);
     //cout << note;
     //cout << freq;
-    data[i] = (int16_t) double(wave_max)*amplitude*(note1->output(time)); //*sin(2*pi*modulation_freq*time);
+//    double val = amplitude*(dubstep_note->output(time))*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
+    double val = amplitude*(sawtooth_note->output(time)); //*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
+
+    if (val > 1e0) {
+      cout << "Sound value has gone above maximum - " << val << endl;
+    }
+
+    data[i] = (int16_t) double(wave_max)*val;
+    //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*note0.output(time)+0.5*note1.output(time)); //*sin(2*pi*modulation_freq*time);
+
+  }
+
+  pa_simple_write(s, &data, samples_count, &error);
+
+  for (int i=0; i<samples_count; i++) {
+
+    time = double(i)/double(ss.rate);
+
+//    double note = bar.evaluate_at(fmod(time*beat_freq, 1));
+//    double freq = base_freq*pow(2, note/12);
+    //cout << note;
+    //cout << freq;
+//    double val = amplitude*(dubstep_note->output(time))*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
+    double val = amplitude*(dubstep_note->output(time))*(womp0->output(time))*womp1->output(time); //*sin(2*pi*modulation_freq*time);
+
+    if (val > 1e0) {
+      cout << "Sound value has gone above maximum - " << val << endl;
+    }
+
+    data[i] = (int16_t) double(wave_max)*val;
     //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*note0.output(time)+0.5*note1.output(time)); //*sin(2*pi*modulation_freq*time);
 
   }
