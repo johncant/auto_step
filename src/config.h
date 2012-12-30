@@ -3,7 +3,9 @@
 
 namespace AutoStep {
   class Config {
+    public:
     static int bar_notes_depth;
+    static double time_step;
   };
 }
 

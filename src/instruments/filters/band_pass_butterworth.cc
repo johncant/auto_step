@@ -12,15 +12,16 @@ using namespace TNT;
 
 // Utility function for pre warping a frequency for use in a bilinear transformed filter
 double AutoStep::Instruments::BandPassButterworthFilter::Sound::bilinear_pre_warp(double input) {
+  double time_step = AutoStep::Config::time_step;
   return (2/time_step)*atan(time_step*input/2);
 }
 
-AutoStep::Instruments::BandPassButterworthFilter::Sound::Sound(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _band_width, unsigned int _order, double _time_step) : AutoStep::Instruments::Filter::Sound(_input), centre_freq(_centre_freq), band_width(_band_width), order(_order), time_step(_time_step) {
+AutoStep::Instruments::BandPassButterworthFilter::Sound::Sound(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _band_width, unsigned int _order) : AutoStep::Instruments::Filter::Sound(_input), centre_freq(_centre_freq), band_width(_band_width), order(_order) {
   calculate_filter_polynomials();
 }
 
-boost::intrusive_ptr<AutoStep::Sound> AutoStep::Instruments::BandPassButterworthFilter::output(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _band_width, unsigned int _order, double _time_step) {
-  return boost::intrusive_ptr<AutoStep::Instruments::BandPassButterworthFilter::Sound>(new AutoStep::Instruments::BandPassButterworthFilter::Sound(_input, _centre_freq, _band_width, _order, _time_step));
+boost::intrusive_ptr<AutoStep::Sound> AutoStep::Instruments::BandPassButterworthFilter::output(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _band_width, unsigned int _order) {
+  return boost::intrusive_ptr<AutoStep::Instruments::BandPassButterworthFilter::Sound>(new AutoStep::Instruments::BandPassButterworthFilter::Sound(_input, _centre_freq, _band_width, _order));
 }
 
 double AutoStep::Instruments::BandPassButterworthFilter::Sound::output(double time) {
@@ -55,6 +56,8 @@ double AutoStep::Instruments::BandPassButterworthFilter::Sound::output(double ti
 }
 
 void AutoStep::Instruments::BandPassButterworthFilter::Sound::calculate_filter_polynomials() {
+
+  double time_step = AutoStep::Config::time_step;
 
   // Find the butterworth poles
   std::vector<complex<double> > poles(order);

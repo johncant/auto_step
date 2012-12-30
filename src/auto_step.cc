@@ -52,6 +52,7 @@ int main(void) {
   ss.format = PA_SAMPLE_S16NE; //Signed 16 Bit PCM, native endian.
   ss.channels = 2;
   ss.rate = 44100;
+  AutoStep::Config::time_step = 1/double(ss.rate);
   int error=0;
   int wave_max = 32767;
 
@@ -110,7 +111,7 @@ int main(void) {
   boost::intrusive_ptr<AutoStep::Sound> sq_wave_sound = sq_wave_generator.output(base_freq);
 
   AutoStep::Instruments::BandPassButterworthFilter dubstep_instrument;
-  boost::intrusive_ptr<AutoStep::Sound> dubstep_sound = dubstep_instrument.output(sq_wave_sound, base_freq, 1e0*base_freq, 2, 1/double(ss.rate));
+  boost::intrusive_ptr<AutoStep::Sound> dubstep_sound = dubstep_instrument.output(sq_wave_sound, base_freq, 1e0*base_freq, 2);
 
   for (int i=0; i<samples_count; i++) {
 

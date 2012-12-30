@@ -16,7 +16,6 @@ namespace AutoStep {
         double centre_freq;
         double band_width;
         unsigned int order;
-        double time_step;
 
         // The filter itself
         std::vector<double> filter_conv;
@@ -31,11 +30,10 @@ namespace AutoStep {
         double output(double time);
         void calculate_filter_polynomials();
         int delay(); // Allows anti-causal filters
-        Sound(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _bandwidth, unsigned int _order, double _time_step);
+        Sound(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _bandwidth, unsigned int _order);
       };
 
-      boost::intrusive_ptr<AutoStep::Sound> output(boost::intrusive_ptr<AutoStep::Sound> &_input, double centre_freq, double bandwidth, unsigned int order, double time_step);
-      double time_step;
+      boost::intrusive_ptr<AutoStep::Sound> output(boost::intrusive_ptr<AutoStep::Sound> &_input, double centre_freq, double bandwidth, unsigned int order);
     };
   }
 }

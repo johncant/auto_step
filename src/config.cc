@@ -7,3 +7,4 @@
 
 
 int AutoStep::Config::bar_notes_depth = 6;
+double AutoStep::Config::time_step = 0;
