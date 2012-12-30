@@ -8,13 +8,13 @@
 #include <math.h>
 #include "../haar.h"
 
-boost::intrusive_ptr<AutoStep::Instruments::SineWave::Note> AutoStep::Instruments::SineWave::output(double freq) {
-  return boost::intrusive_ptr<AutoStep::Instruments::SineWave::Note>(new AutoStep::Instruments::SineWave::Note(freq));
+boost::intrusive_ptr<AutoStep::Instruments::SineWave::Sound> AutoStep::Instruments::SineWave::output(double freq) {
+  return boost::intrusive_ptr<AutoStep::Instruments::SineWave::Sound>(new AutoStep::Instruments::SineWave::Sound(freq));
 }
 
-AutoStep::Instruments::SineWave::Note::Note(double _freq) : freq(_freq) {}
+AutoStep::Instruments::SineWave::Sound::Sound(double _freq) : freq(_freq) {}
 
-double AutoStep::Instruments::SineWave::Note::output(double time) {
+double AutoStep::Instruments::SineWave::Sound::output(double time) {
   return sin(2*M_PI*freq*time);
 }
 

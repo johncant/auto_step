@@ -97,38 +97,38 @@ int main(void) {
   double womp_freq = 1;
 
   AutoStep::Instruments::SineWave instrument0;
-  boost::intrusive_ptr<AutoStep::Note> womp0 = instrument0.output(modulation_freq);
-  boost::intrusive_ptr<AutoStep::Note> womp1 = instrument0.output(womp_freq);
+  boost::intrusive_ptr<AutoStep::Sound> womp0 = instrument0.output(modulation_freq);
+  boost::intrusive_ptr<AutoStep::Sound> womp1 = instrument0.output(womp_freq);
 
   AutoStep::Instruments::SineWave sine_wave_generator;
-  boost::intrusive_ptr<AutoStep::Note> sine_wave_note = sine_wave_generator.output(base_freq);
+  boost::intrusive_ptr<AutoStep::Sound> sine_wave_sound = sine_wave_generator.output(base_freq);
 
   AutoStep::Instruments::SquareWave sawtooth_generator;
-  boost::intrusive_ptr<AutoStep::Note> sawtooth_note = sawtooth_generator.output(base_freq);
+  boost::intrusive_ptr<AutoStep::Sound> sawtooth_sound = sawtooth_generator.output(base_freq);
 
   AutoStep::Instruments::SquareWave sq_wave_generator;
-  boost::intrusive_ptr<AutoStep::Note> sq_wave_note = sq_wave_generator.output(base_freq);
+  boost::intrusive_ptr<AutoStep::Sound> sq_wave_sound = sq_wave_generator.output(base_freq);
 
-  AutoStep::Instruments::BandPassButterworthFilter dubstep_sound;
-  boost::intrusive_ptr<AutoStep::Note> dubstep_note = dubstep_sound.output(sq_wave_note, base_freq, 1e0*base_freq, 2, 1/double(ss.rate));
+  AutoStep::Instruments::BandPassButterworthFilter dubstep_instrument;
+  boost::intrusive_ptr<AutoStep::Sound> dubstep_sound = dubstep_instrument.output(sq_wave_sound, base_freq, 1e0*base_freq, 2, 1/double(ss.rate));
 
   for (int i=0; i<samples_count; i++) {
 
     time = double(i)/double(ss.rate);
 
-//    double note = bar.evaluate_at(fmod(time*beat_freq, 1));
-//    double freq = base_freq*pow(2, note/12);
-    //cout << note;
+//    double sound = bar.evaluate_at(fmod(time*beat_freq, 1));
+//    double freq = base_freq*pow(2, sound/12);
+    //cout << sound;
     //cout << freq;
-//    double val = amplitude*(dubstep_note->output(time))*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
-    double val = amplitude*(sawtooth_note->output(time)); //*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
+//    double val = amplitude*(dubstep_sound->output(time))*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
+    double val = amplitude*(sawtooth_sound->output(time)); //*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
 
     if (val > 1e0) {
       cout << "Sound value has gone above maximum - " << val << endl;
     }
 
     data[i] = (int16_t) double(wave_max)*val;
-    //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*note0.output(time)+0.5*note1.output(time)); //*sin(2*pi*modulation_freq*time);
+    //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*sound0.output(time)+0.5*sound1.output(time)); //*sin(2*pi*modulation_freq*time);
 
   }
 
@@ -138,19 +138,19 @@ int main(void) {
 
     time = double(i)/double(ss.rate);
 
-//    double note = bar.evaluate_at(fmod(time*beat_freq, 1));
-//    double freq = base_freq*pow(2, note/12);
-    //cout << note;
+//    double sound = bar.evaluate_at(fmod(time*beat_freq, 1));
+//    double freq = base_freq*pow(2, sound/12);
+    //cout << sound;
     //cout << freq;
-//    double val = amplitude*(dubstep_note->output(time))*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
-    double val = amplitude*(dubstep_note->output(time))*(womp0->output(time))*womp1->output(time); //*sin(2*pi*modulation_freq*time);
+//    double val = amplitude*(dubstep_sound->output(time))*(womp->output(time)); //*sin(2*pi*modulation_freq*time);
+    double val = amplitude*(dubstep_sound->output(time))*(womp0->output(time))*womp1->output(time); //*sin(2*pi*modulation_freq*time);
 
     if (val > 1e0) {
       cout << "Sound value has gone above maximum - " << val << endl;
     }
 
     data[i] = (int16_t) double(wave_max)*val;
-    //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*note0.output(time)+0.5*note1.output(time)); //*sin(2*pi*modulation_freq*time);
+    //data[i] = (int16_t) double(wave_max)*amplitude*(0.5*sound0.output(time)+0.5*sound1.output(time)); //*sin(2*pi*modulation_freq*time);
 
   }
 

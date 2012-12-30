@@ -2,16 +2,16 @@
 #define __SINE_WAVE_H__
 
 #include "../instrument.h"
-#include "../note.h"
+#include "../sound.h"
 
 
 namespace AutoStep {
   namespace Instruments {
     class SineWave : public AutoStep::Instrument {
       public:
-      class Note : public AutoStep::Note {
+      class Sound : public AutoStep::Sound {
         friend class SineWave;
-        Note(double _freq);
+        Sound(double _freq);
         private:
         double freq;
 
@@ -19,7 +19,7 @@ namespace AutoStep {
         double output(double time);
       };
 
-      boost::intrusive_ptr<SineWave::Note> output(double freq);
+      boost::intrusive_ptr<SineWave::Sound> output(double freq);
     };
   }
 }

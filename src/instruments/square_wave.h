@@ -2,24 +2,24 @@
 #define __SQUARE_WAVE_H__
 
 #include "../instrument.h"
-#include "../note.h"
+#include "../sound.h"
 
 
 namespace AutoStep {
   namespace Instruments {
     class SquareWave : public AutoStep::Instrument {
       public:
-      class Note : public AutoStep::Note {
+      class Sound : public AutoStep::Sound {
         friend class SquareWave;
         private:
-        Note(double _freq);
+        Sound(double _freq);
         double freq;
 
         public:
         double output(double time);
       };
 
-      boost::intrusive_ptr<SquareWave::Note> output(double freq);
+      boost::intrusive_ptr<SquareWave::Sound> output(double freq);
     };
   }
 }

@@ -2,24 +2,24 @@
 #define __SAWTOOTH_H__
 
 #include "../instrument.h"
-#include "../note.h"
+#include "../sound.h"
 
 
 namespace AutoStep {
   namespace Instruments {
     class SawTooth : public AutoStep::Instrument {
       public:
-      class Note : public AutoStep::Note {
+      class Sound : public AutoStep::Sound {
         friend class SawTooth;
         private:
-        Note(double _freq);
+        Sound(double _freq);
         double freq;
 
         public:
         double output(double time);
       };
 
-      boost::intrusive_ptr<SawTooth::Note> output(double freq);
+      boost::intrusive_ptr<SawTooth::Sound> output(double freq);
     };
   }
 }

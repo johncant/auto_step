@@ -6,7 +6,7 @@
 #include "filter.h"
 
 
-AutoStep::Instruments::Filter::Note::Note(const boost::intrusive_ptr<AutoStep::Note> &_input) : input(_input) {
+AutoStep::Instruments::Filter::Sound::Sound(const boost::intrusive_ptr<AutoStep::Sound> &_input) : input(_input) {
 }
 
 
