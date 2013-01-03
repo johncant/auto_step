@@ -11,5 +11,5 @@
   
 bin_PROGRAMS = auto_step
 EXTRA_PROGRAMS = auto_step
-auto_step_LDADD = -lpulse-simple
-auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc sound.cc instruments/sine_wave.cc instruments/square_wave.cc instruments/sawtooth.cc instruments/filter.cc instruments/filters/band_pass_butterworth.cc
+auto_step_LDADD = -lpulse
+auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc sound.cc player.cc instruments/sine_wave.cc instruments/square_wave.cc instruments/sawtooth.cc instruments/filter.cc instruments/filters/band_pass_butterworth.cc instruments/filters/modulator.cc instruments/note_envelope.cc

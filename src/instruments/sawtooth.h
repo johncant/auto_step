@@ -17,6 +17,11 @@ namespace AutoStep {
 
         public:
         double output(double time);
+
+        double delay(void);
+        double duration(void);
+        double start_time(void);
+
       };
 
       boost::intrusive_ptr<SawTooth::Sound> output(double freq);

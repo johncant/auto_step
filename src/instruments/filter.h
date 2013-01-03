@@ -15,9 +15,11 @@ namespace AutoStep {
         boost::intrusive_ptr<AutoStep::Sound> input;
         Sound(const boost::intrusive_ptr<AutoStep::Sound> &_input);
         Sound(const AutoStep::Sound &_input);
+        double delay(); // Allows finite impulse pre-response anti-causal filters
+        double duration();
+        double start_time();
       };
 
-      int delay(); // Allows finite impulse pre-response anti-causal filters
     };
   }
 }

@@ -22,3 +22,6 @@ void intrusive_ptr_release(AutoStep::Sound *ptr) {
   }
 }
 
+double AutoStep::Sound::delay() {
+  return 0e0;
+}

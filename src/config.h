@@ -6,6 +6,8 @@ namespace AutoStep {
     public:
     static int bar_notes_depth;
     static double time_step;
+    static unsigned int rate;
+    static double max_integer_amplitude;
   };
 }
 

@@ -10,7 +10,17 @@ AutoStep::Instruments::Filter::Sound::Sound(const boost::intrusive_ptr<AutoStep:
 }
 
 
-// Delay - assume 0 samples
-int AutoStep::Instruments::Filter::delay() {
-  return 0;
+// Delay - 0 samples = causality
+double AutoStep::Instruments::Filter::Sound::delay() {
+  return input->delay();
 }
+
+double AutoStep::Instruments::Filter::Sound::duration(void) {
+  return input->duration();
+}
+
+double AutoStep::Instruments::Filter::Sound::start_time(void) {
+  return input->start_time();
+}
+
+

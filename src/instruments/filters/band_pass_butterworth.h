@@ -29,7 +29,6 @@ namespace AutoStep {
         double bilinear_pre_warp(double input);
         double output(double time);
         void calculate_filter_polynomials();
-        int delay(); // Allows anti-causal filters
         Sound(boost::intrusive_ptr<AutoStep::Sound> &_input, double _centre_freq, double _bandwidth, unsigned int _order);
       };
 

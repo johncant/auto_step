@@ -6,6 +6,7 @@
 #include "sine_wave.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <limits>
 #include "../haar.h"
 
 boost::intrusive_ptr<AutoStep::Instruments::SineWave::Sound> AutoStep::Instruments::SineWave::output(double freq) {
@@ -18,3 +19,14 @@ double AutoStep::Instruments::SineWave::Sound::output(double time) {
   return sin(2*M_PI*freq*time);
 }
 
+double AutoStep::Instruments::SineWave::Sound::duration(void) {
+  return std::numeric_limits<double>::infinity();
+}
+
+double AutoStep::Instruments::SineWave::Sound::delay(void) {
+  return 0;
+}
+
+double AutoStep::Instruments::SineWave::Sound::start_time(void) {
+  return 0;
+}

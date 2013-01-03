@@ -74,9 +74,11 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_auto_step_OBJECTS = auto_step.$(OBJEXT) haar.$(OBJEXT) \
-	config.$(OBJEXT) bar_simple_line.$(OBJEXT) note.$(OBJEXT) \
-	sine_wave.$(OBJEXT) square_wave.$(OBJEXT) sawtooth.$(OBJEXT) \
-	filter.$(OBJEXT) band_pass_butterworth.$(OBJEXT)
+	config.$(OBJEXT) bar_simple_line.$(OBJEXT) sound.$(OBJEXT) \
+	player.$(OBJEXT) sine_wave.$(OBJEXT) square_wave.$(OBJEXT) \
+	sawtooth.$(OBJEXT) filter.$(OBJEXT) \
+	band_pass_butterworth.$(OBJEXT) modulator.$(OBJEXT) \
+	note_envelope.$(OBJEXT)
 auto_step_OBJECTS = $(am_auto_step_OBJECTS)
 auto_step_DEPENDENCIES =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -182,8 +184,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-auto_step_LDADD = -lpulse-simple
-auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc note.cc instruments/sine_wave.cc instruments/square_wave.cc instruments/sawtooth.cc instruments/filter.cc instruments/filters/band_pass_butterworth.cc
+auto_step_LDADD = -lpulse
+auto_step_SOURCES = auto_step.cc haar.cc config.cc bar_simple_line.cc sound.cc player.cc instruments/sine_wave.cc instruments/square_wave.cc instruments/sawtooth.cc instruments/filter.cc instruments/filters/band_pass_butterworth.cc instruments/filters/modulator.cc instruments/note_envelope.cc
 all: all-am
 
 .SUFFIXES:
@@ -274,9 +276,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/filter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/haar.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/note.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/modulator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/note_envelope.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/player.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sawtooth.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sine_wave.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sound.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/square_wave.Po@am__quote@
 
 .cc.o:
@@ -362,6 +367,34 @@ band_pass_butterworth.obj: instruments/filters/band_pass_butterworth.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filters/band_pass_butterworth.cc' object='band_pass_butterworth.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o band_pass_butterworth.obj `if test -f 'instruments/filters/band_pass_butterworth.cc'; then $(CYGPATH_W) 'instruments/filters/band_pass_butterworth.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filters/band_pass_butterworth.cc'; fi`
+
+modulator.o: instruments/filters/modulator.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT modulator.o -MD -MP -MF $(DEPDIR)/modulator.Tpo -c -o modulator.o `test -f 'instruments/filters/modulator.cc' || echo '$(srcdir)/'`instruments/filters/modulator.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/modulator.Tpo $(DEPDIR)/modulator.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filters/modulator.cc' object='modulator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o modulator.o `test -f 'instruments/filters/modulator.cc' || echo '$(srcdir)/'`instruments/filters/modulator.cc
+
+modulator.obj: instruments/filters/modulator.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT modulator.obj -MD -MP -MF $(DEPDIR)/modulator.Tpo -c -o modulator.obj `if test -f 'instruments/filters/modulator.cc'; then $(CYGPATH_W) 'instruments/filters/modulator.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filters/modulator.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/modulator.Tpo $(DEPDIR)/modulator.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/filters/modulator.cc' object='modulator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o modulator.obj `if test -f 'instruments/filters/modulator.cc'; then $(CYGPATH_W) 'instruments/filters/modulator.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/filters/modulator.cc'; fi`
+
+note_envelope.o: instruments/note_envelope.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT note_envelope.o -MD -MP -MF $(DEPDIR)/note_envelope.Tpo -c -o note_envelope.o `test -f 'instruments/note_envelope.cc' || echo '$(srcdir)/'`instruments/note_envelope.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/note_envelope.Tpo $(DEPDIR)/note_envelope.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/note_envelope.cc' object='note_envelope.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o note_envelope.o `test -f 'instruments/note_envelope.cc' || echo '$(srcdir)/'`instruments/note_envelope.cc
+
+note_envelope.obj: instruments/note_envelope.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT note_envelope.obj -MD -MP -MF $(DEPDIR)/note_envelope.Tpo -c -o note_envelope.obj `if test -f 'instruments/note_envelope.cc'; then $(CYGPATH_W) 'instruments/note_envelope.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/note_envelope.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/note_envelope.Tpo $(DEPDIR)/note_envelope.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='instruments/note_envelope.cc' object='note_envelope.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o note_envelope.obj `if test -f 'instruments/note_envelope.cc'; then $(CYGPATH_W) 'instruments/note_envelope.cc'; else $(CYGPATH_W) '$(srcdir)/instruments/note_envelope.cc'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
